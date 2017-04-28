@@ -138,12 +138,18 @@ public class QuestionManager {
 		ArrayList<Question> categoryQuestions = new ArrayList<Question>();
 		questions.put(category, categoryQuestions);
 	}
+	
+	/**
+	 * @return a string representing the QuestionManager.
+	 */
 	public String toString() {
 		String result = "";
 		for (String category: questions.keySet()) {
+			result += "=== " + category + " ===" + "\n";
 			for (Question q: questions.get(category)) {
 				result += q.getQuestion() + "\n";
 			}
+			result += "\n";
 		}
 		return result;
 	}
