@@ -28,6 +28,9 @@ public class QuestionManager {
 	/** A map from Category to an array of Questions. */
 	private Map<String, ArrayList<Question>> questions;
 	
+	/**
+	 * Creates a new QuestionManager.
+	 */
 	private QuestionManager() {
 		questions = new HashMap<String, ArrayList<Question>>();
 		File file = new File("questions.ser");
@@ -92,6 +95,7 @@ public class QuestionManager {
 		output.writeObject(questions);
 		output.close();
 	}
+	
 	/**
 	 * Add a question to the map.
 	 * 
@@ -108,6 +112,7 @@ public class QuestionManager {
 			}
 		}
 	}
+	
 	/**
 	 * Remove a question from the map.
 	 * 
@@ -122,4 +127,39 @@ public class QuestionManager {
 			}
 		}
 	}
-}
+	
+	/**
+	 * Add a new category to the map.
+	 * 
+	 * @param category
+	 * 		The category to be added.
+	 */
+	public void addCategory(String category) {
+		ArrayList<Question> categoryQuestions = new ArrayList<Question>();
+		questions.put(category, categoryQuestions);
+	}
+	public String toString() {
+		String result = "";
+		for (String category: questions.keySet()) {
+			for (Question q: questions.get(category)) {
+				result += q.getQuestion() + "\n";
+			}
+		}
+		return result;
+	}
+
+	public static void main(String[] args) {
+		QuestionManager qm = new QuestionManager();
+		String category = "Star Wars";
+		qm.addCategory(category);
+		String q1 = "What is Luke's last name?";
+		int d1 = 1;
+		String a1 = "Skywalker";
+		Question question1 = new Question(category, q1, a1, d1);
+		question1.addIncorrect("Starkiller");
+		question1.addIncorrect("Solo");
+		qm.addQuestion(question1);
+		System.out.println(qm);
+	}
+}	
+
