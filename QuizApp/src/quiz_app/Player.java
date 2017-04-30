@@ -182,5 +182,14 @@ public class Player {
 	public void setAvator(String avator) {
 		this.avator = avator;
 	}
+	
+	/**
+	 * Print the related information of a player.
+	 */
+	@Override
+	public String toString() {
+		return "Info of the player\n" + "Avator: " + avator + "\nName: " + name + " \nLogin ID: " + login
+				+ "\nTotal Correct Score: " + total_correct + "\nCategory_scores: " + category_scores;
+	}
 
 }
