@@ -9,7 +9,7 @@ public class Player {
 	/** The Player's name. */
 	private String name;
 	/** The unique login ID. */
-	private Integer login;
+	private String login;
 	/** The password for login. */
 	private String password;
 	/** The total score of all questions this player had answered. */
@@ -39,13 +39,13 @@ public class Player {
 	 * @param avator
 	 *            palyer's avator
 	 */
-	public Player(String name, String password, Integer total_score, Integer total_correct,
-			HashMap<String, Integer> catgory_scores, String avator) {
+	public Player(String name, String login, String password, String avator) {
 		this.name = name;
+		this.login = login;
 		this.password = password;
-		this.total_score = total_score;
-		this.total_correct = total_correct;
-		this.category_scores = catgory_scores;
+		this.total_score = 0;
+		this.total_correct = 0;
+		this.category_scores = new HashMap<String, Integer>();
 		this.avator = avator;
 	}
 
@@ -69,7 +69,7 @@ public class Player {
 	/**
 	 * @return the player's interger login id.
 	 */
-	public Integer getLogin() {
+	public String getLogin() {
 		return login;
 	}
 
@@ -79,9 +79,10 @@ public class Player {
 	 * @param login
 	 *            the unique id of the player
 	 */
-	public void setLogin(Integer login) {
+	public void setLogin(String new_login) {
+		// Check all other login to make sure the String new_login is unique.
 		if (this.login == null) {
-			this.login = login;
+			this.login = new_login;
 		}
 	}
 
@@ -182,7 +183,7 @@ public class Player {
 	public void setAvator(String avator) {
 		this.avator = avator;
 	}
-	
+
 	/**
 	 * Print the related information of a player.
 	 */
