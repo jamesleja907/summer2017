@@ -85,7 +85,7 @@ public class Player extends Account {
 	public void setPasswordP(String old_password, String new_password) {
 		// A user can only change the password if he/she can correctly provide
 		// the old password.
-		if (this.password == old_password) {
+		if (this.password.equals(old_password)) {
 			this.password = new_password;
 		}
 	}
@@ -100,7 +100,7 @@ public class Player extends Account {
 	 *            the new password
 	 */
 	public void setPasswordQ(String input_answer, String new_password) {
-		if (this.answer == input_answer) {
+		if (this.answer.equals(input_answer)) {
 			this.password = new_password;
 		}
 	}
