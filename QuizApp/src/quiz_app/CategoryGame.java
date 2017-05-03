@@ -10,8 +10,7 @@ public class CategoryGame extends Game {
 	
 	protected String category;
 	
-	private int score;
-//	
+	private int score;	
 	private int time;
 	
 	public CategoryGame(String category){
