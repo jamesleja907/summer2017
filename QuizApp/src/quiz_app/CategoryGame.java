@@ -1,5 +1,8 @@
 package quiz_app;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -60,17 +63,44 @@ public class CategoryGame extends Game {
 		return questions;
 		
 	}
-	class askQuestion extends TimerTask{
-
-		@Override
-		public void run() {
-			Question q = questions.get(0);
-			System.out.println(q.getQuestion());
-//			boolean correct = false;
-			String answer = scanner.next();
+	
+	public void askQuestion(Question q) throws IOException {
+		
+		System.out.println(q.getQuestion());
+		String str = "";
+		TimerTask task = new TimerTask(){
+			public void run(){
+				if (str.equals("")){
+					System.out.println("You ran out of time!! The correct answer was " + q.getCorrectAnswer() + "\n");
+				}
+			}
+		};
+		Timer timer = new Timer();
+		timer.schedule(task, 10*1000);
+		
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		String answer = in.readLine();
+		if (answer.equals(q.getCorrectAnswer())){
+			score += 10;
+			System.out.println("Correct \n");
+			timer.cancel();
+		}
+		timer.cancel();
+		
 			
 		}
-		
-	}
 
+	public static void main (String[] args) throws IOException{
+		String category = "Star Wars";
+		String q1 = "What is Luke's last name?";
+		int d1 = 1;
+		String a1 = "Skywalker";
+		Question question1 = new Question(category, q1, a1, d1);
+		question1.addIncorrect("Starkiller");
+		question1.addIncorrect("Solo");
+		CategoryGame cm = new CategoryGame(category, 1);
+		cm.askQuestion(question1);
+		System.out.println(cm.score);
+	}
 }
+
