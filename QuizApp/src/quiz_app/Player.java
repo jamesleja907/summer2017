@@ -5,7 +5,7 @@ import java.util.HashMap;
 /**
  * The Class for player in the app.
  */
-public class Player {
+public class Player extends Account {
 	/** The Player's name. */
 	private String name;
 	/** The unique login ID. */
@@ -20,6 +20,10 @@ public class Player {
 	private HashMap<String, Integer> category_scores;
 	/** Palyer's avator. This should be an address to a local file. */
 	private String avator;
+	/** Security question for changing password. */
+	private String question;
+	/** The answer to the security question. */
+	private String answer;
 
 	/**
 	 * Create a player with name, password, total score, total correct scores,
@@ -29,24 +33,20 @@ public class Player {
 	 *            the name of this Player
 	 * @param password
 	 *            the password for login
-	 * @param total_score
-	 *            the total score of all questions this player had answered.
-	 * @param total_correct
-	 *            the total correct socre of all questions this player has
-	 *            answered.
-	 * @param catgory_scores
-	 *            ccores the player get for different categories
+	 * @param login
+	 *            the user id
 	 * @param avator
 	 *            palyer's avator
 	 */
 	public Player(String name, String login, String password, String avator) {
+		super(login, password);
 		this.name = name;
-		this.login = login;
-		this.password = password;
 		this.total_score = 0;
 		this.total_correct = 0;
 		this.category_scores = new HashMap<String, Integer>();
 		this.avator = avator;
+		this.question = null;
+		this.answer = null;
 	}
 
 	/**
@@ -74,30 +74,33 @@ public class Player {
 	}
 
 	/**
-	 * Set the player's unique login id.
+	 * Set or reset the player's password if the player pass the "old password"
+	 * check.
 	 * 
-	 * @param login
-	 *            the unique id of the player
+	 * @param old_password
+	 *            the player's current password
+	 * @param new_password
+	 *            the new password
 	 */
-	public void setLogin(String new_login) {
-		// Check all other login to make sure the String new_login is unique.
-		if (this.login == null) {
-			this.login = new_login;
+	public void setPasswordP(String old_password, String new_password) {
+		// A user can only change the password if he/she can correctly provide
+		// the old password.
+		if (this.password == old_password) {
+			this.password = new_password;
 		}
 	}
 
 	/**
-	 * Set or reset the player's password.
+	 * Set or reset the player's password if the player can answer the security
+	 * question.
 	 * 
-	 * @param old_password
-	 *            Player's current password
+	 * @param input_answer
+	 *            the player's input
 	 * @param new_password
 	 *            the new password
 	 */
-	public void setPassword(String old_password, String new_password) {
-		// A user can only change the password if he/she can correctly provide
-		// the old password.
-		if (this.password == old_password) {
+	public void setPasswordQ(String input_answer, String new_password) {
+		if (this.answer == input_answer) {
 			this.password = new_password;
 		}
 	}
@@ -182,6 +185,43 @@ public class Player {
 	 */
 	public void setAvator(String avator) {
 		this.avator = avator;
+	}
+
+	/**
+	 * @return the player's security question.
+	 */
+
+	public String getQuestion() {
+		return question;
+	}
+
+	/**
+	 * Update the player's security question.
+	 * 
+	 * @param new_question
+	 *            the new security question to be set
+	 * 
+	 * @param old_answer
+	 *            the answer to the current security question
+	 */
+	public void setQuestion(String new_question) {
+		this.question = new_question;
+	}
+
+	/**
+	 * @return the answer to the player's sectury question.
+	 */
+	public String getAnswer() {
+		return answer;
+	}
+
+	/**
+	 * Update the answer to player's security question.
+	 * 
+	 * @param answer
+	 */
+	public void setAnswer(String answer) {
+		this.answer = answer;
 	}
 
 	/**
