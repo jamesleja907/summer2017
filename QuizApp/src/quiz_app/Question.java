@@ -4,44 +4,43 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Question implements Serializable {
-	
+
 	/**
 	 * A question object.
 	 */
 	private static final long serialVersionUID = 1482532405230307666L;
-	
+
 	/** The unique id of the Question. */
 	private String id;
-	
+
 	/** The category of the Question. */
 	private String category;
-	
+
 	/** The difficulty of the Question. */
 	private int difficulty;
-	
+
 	/** The question of the Question. */
-	private String question;	
+	private String question;
 
 	/** The correct answer to the Question. */
 	private String correctAnswer;
-	
+
 	/** A list of incorrect answers to the Question. */
 	private ArrayList<String> incorrects;
-	
+
 	/**
 	 * A new Question object.
 	 * 
 	 * @param category
-	 * 		The category of the Question.
+	 *            The category of the Question.
 	 * @param question
-	 * 		The question.
+	 *            The question.
 	 * @param correctAnswer
-	 * 		The answer to the question.
+	 *            The answer to the question.
 	 * @param difficulty
-	 * 		The difficulty of the question.
+	 *            The difficulty of the question.
 	 */
-	public Question(String category, String question, 
-				String correctAnswer, int difficulty) {
+	public Question(String category, String question, String correctAnswer, int difficulty) {
 		this.category = category;
 		this.question = question;
 		this.correctAnswer = correctAnswer;
@@ -49,7 +48,7 @@ public class Question implements Serializable {
 		// Check the QuestionLog to get the next id?
 		this.incorrects = new ArrayList<String>();
 	}
-	
+
 	public String getQuestion() {
 		return question;
 	}
@@ -57,7 +56,7 @@ public class Question implements Serializable {
 	public void setQuestion(String question) {
 		this.question = question;
 	}
-	
+
 	public String getId() {
 		return id;
 	}
@@ -97,7 +96,7 @@ public class Question implements Serializable {
 	public void setIncorrects(ArrayList<String> incorrects) {
 		this.incorrects = incorrects;
 	}
-	
+
 	public void addIncorrect(String incorrect) {
 		this.incorrects.add(incorrect);
 	}
