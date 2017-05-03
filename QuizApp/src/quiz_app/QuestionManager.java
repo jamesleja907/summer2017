@@ -140,6 +140,22 @@ public class QuestionManager {
 	}
 	
 	/**
+	 * Returns an array of the Questions at key category.
+	 * 
+	 * @param category
+	 * 		The category for questions.
+	 * 
+	 * @return The array list of Questions.
+	 */
+	public ArrayList<Question> getQuestions(String category) {
+		if (questions.containsKey(category)) {
+			return questions.get(category);
+		} else {
+			return null;
+		}
+	}
+	
+	/**
 	 * @return a string representing the QuestionManager.
 	 */
 	public String toString() {
