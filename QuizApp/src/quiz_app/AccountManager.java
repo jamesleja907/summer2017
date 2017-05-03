@@ -24,7 +24,7 @@ public class AccountManager {
 	/** The instance of AccountManager */
 	private static final AccountManager instance = new AccountManager();
 	
-	/** A map from the id of the Account to the Account. */
+	/** A map from the login of the Account to the Account. */
 	private Map<String, Account> accounts;
 	
 	/**
@@ -101,8 +101,8 @@ public class AccountManager {
 	 * 		The account to be added.
 	 */
 	public void addAccount(Account account) {
-		if (!accounts.containsKey(account.getId())) {
-			accounts.put(account.getId(), account);
+		if (!accounts.containsKey(account.getLogin())) {
+			accounts.put(account.getLogin(), account);
 		}
 	}
 	
@@ -113,8 +113,8 @@ public class AccountManager {
 	 * 		The account to be removed.
 	 */
 	public void removeAccount(Account account) {
-		if (accounts.containsKey(account.getId())) {
-				accounts.remove(account.getId());
+		if (accounts.containsKey(account.getLogin())) {
+				accounts.remove(account.getLogin());
 		}
 	}
 }
