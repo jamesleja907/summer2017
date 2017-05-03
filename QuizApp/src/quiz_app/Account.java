@@ -1,9 +1,11 @@
 package quiz_app;
 
+import java.io.Serializable;
+
 /**
  * The superclass for Players and Admins.
  */
-public class Account {
+public class Account implements Serializable {
 	
 	/** The login to the account.*/
 	private String login;

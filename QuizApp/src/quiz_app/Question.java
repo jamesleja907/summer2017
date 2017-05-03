@@ -20,8 +20,8 @@ public class Question implements Serializable {
 	private int difficulty;
 	
 	/** The question of the Question. */
-	private String question;
-	
+	private String question;	
+
 	/** The correct answer to the Question. */
 	private String correctAnswer;
 	
@@ -30,6 +30,15 @@ public class Question implements Serializable {
 	
 	/**
 	 * A new Question object.
+	 * 
+	 * @param category
+	 * 		The category of the Question.
+	 * @param question
+	 * 		The question.
+	 * @param correctAnswer
+	 * 		The answer to the question.
+	 * @param difficulty
+	 * 		The difficulty of the question.
 	 */
 	public Question(String category, String question, 
 				String correctAnswer, int difficulty) {
@@ -39,9 +48,16 @@ public class Question implements Serializable {
 		this.difficulty = difficulty;
 		// Check the QuestionLog to get the next id?
 		this.incorrects = new ArrayList<String>();
-		
+	}
+	
+	public String getQuestion() {
+		return question;
 	}
 
+	public void setQuestion(String question) {
+		this.question = question;
+	}
+	
 	public String getId() {
 		return id;
 	}
