@@ -6,24 +6,24 @@ import java.io.Serializable;
  * The superclass for Players and Admins.
  */
 public class Account implements Serializable {
-	
-	/** The login to the account.*/
+
+	/** The login to the account. */
 	private String login;
-	/** The password of the account.*/
+	/** The password of the account. */
 	private String password;
-	
+
 	/**
 	 * 
 	 * @param login
-	 * 		The login to the account.
+	 *            The login to the account.
 	 * @param password
-	 * 		The password of the account.
+	 *            The password of the account.
 	 */
-	public Account(String login, String password){
+	public Account(String login, String password) {
 		this.login = login;
 		this.password = password;
 	}
-	
+
 	/**
 	 * 
 	 * @return the login of the account.
@@ -31,17 +31,17 @@ public class Account implements Serializable {
 	public String getLogin() {
 		return login;
 	}
-	
+
 	/**
 	 * 
 	 * @param login
-	 * 		The new login of the account.
+	 *            The new login of the account.
 	 */
 	public void setLogin(String login) {
 		// Check all other login to make sure the String new_login is unique.
 		this.login = login;
 	}
-	
+
 	/**
 	 * 
 	 * @return the password of the account.
@@ -49,11 +49,11 @@ public class Account implements Serializable {
 	public String getPassword() {
 		return password;
 	}
-	
+
 	/**
 	 * 
 	 * @param password
-	 * 		The new password of the account.
+	 *            The new password of the account.
 	 */
 	public void setPassword(String old_password, String new_password) {
 		// A user can only change the password if he/she can correctly provide

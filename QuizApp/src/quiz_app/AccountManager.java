@@ -1,4 +1,5 @@
 package quiz_app;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -20,13 +21,13 @@ import java.util.Map;
  * Manages the saving and loading of Accounts.
  */
 public class AccountManager {
-	
+
 	/** The instance of AccountManager */
 	private static final AccountManager instance = new AccountManager();
-	
+
 	/** A map from the login of the Account to the Account. */
 	private Map<String, Account> accounts;
-	
+
 	/**
 	 * Creates a new AccountManager.
 	 */
@@ -53,6 +54,7 @@ public class AccountManager {
 	public static AccountManager getInstance() {
 		return instance;
 	}
+
 	/**
 	 * Populates the question map from the file at path filePath.
 	 * 
@@ -74,7 +76,7 @@ public class AccountManager {
 		} catch (IOException ex) {
 		}
 	}
-	
+
 	/**
 	 * Writes the questions to file at filePath.
 	 * 
@@ -93,28 +95,28 @@ public class AccountManager {
 		output.writeObject(accounts);
 		output.close();
 	}
-	
+
 	/**
 	 * Add an account to the map.
 	 * 
 	 * @param account
-	 * 		The account to be added.
+	 *            The account to be added.
 	 */
 	public void addAccount(Account account) {
 		if (!accounts.containsKey(account.getLogin())) {
 			accounts.put(account.getLogin(), account);
 		}
 	}
-	
+
 	/**
 	 * Remove an account from the map.
 	 * 
 	 * @param account
-	 * 		The account to be removed.
+	 *            The account to be removed.
 	 */
 	public void removeAccount(Account account) {
 		if (accounts.containsKey(account.getLogin())) {
-				accounts.remove(account.getLogin());
+			accounts.remove(account.getLogin());
 		}
 	}
 }

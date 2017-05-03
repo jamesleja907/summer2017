@@ -21,13 +21,13 @@ import java.util.Map;
  * Manages the saving and loading of Questions.
  */
 public class QuestionManager {
-	
+
 	/** The instance of QuestionManager */
 	private static final QuestionManager instance = new QuestionManager();
-	
+
 	/** A map from Category to an array of Questions. */
 	private Map<String, ArrayList<Question>> questions;
-	
+
 	/**
 	 * Creates a new QuestionManager.
 	 */
@@ -76,7 +76,7 @@ public class QuestionManager {
 		} catch (IOException ex) {
 		}
 	}
-	
+
 	/**
 	 * Writes the questions to file at filePath.
 	 * 
@@ -95,55 +95,55 @@ public class QuestionManager {
 		output.writeObject(questions);
 		output.close();
 	}
-	
+
 	/**
 	 * Add a question to the map.
 	 * 
 	 * @param question
-	 * 		The question to be added.
+	 *            The question to be added.
 	 */
 	public void addQuestion(Question question) {
 		// Get the category from the question, which is the key.
 		String category = question.getCategory();
 		if (questions.containsKey(category)) {
 			// If the question is not in the array, add it.
-			if (!questions.get(category).contains(question)){
+			if (!questions.get(category).contains(question)) {
 				questions.get(category).add(question);
 			}
 		}
 	}
-	
+
 	/**
 	 * Remove a question from the map.
 	 * 
 	 * @param question
-	 * 		The question to be removed.
+	 *            The question to be removed.
 	 */
 	public void removeQuestion(Question question) {
 		String category = question.getCategory();
 		if (questions.containsKey(category)) {
-			if (questions.get(category).contains(question)){
+			if (questions.get(category).contains(question)) {
 				questions.get(category).remove(question);
 			}
 		}
 	}
-	
+
 	/**
 	 * Add a new category to the map.
 	 * 
 	 * @param category
-	 * 		The category to be added.
+	 *            The category to be added.
 	 */
 	public void addCategory(String category) {
 		ArrayList<Question> categoryQuestions = new ArrayList<Question>();
 		questions.put(category, categoryQuestions);
 	}
-	
+
 	/**
 	 * Returns an array of the Questions at key category.
 	 * 
 	 * @param category
-	 * 		The category for questions.
+	 *            The category for questions.
 	 * 
 	 * @return The array list of Questions.
 	 */
@@ -154,15 +154,15 @@ public class QuestionManager {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * @return a string representing the QuestionManager.
 	 */
 	public String toString() {
 		String result = "";
-		for (String category: questions.keySet()) {
+		for (String category : questions.keySet()) {
 			result += "=== " + category + " ===" + "\n";
-			for (Question q: questions.get(category)) {
+			for (Question q : questions.get(category)) {
 				result += q.getQuestion() + "\n";
 			}
 			result += "\n";
@@ -183,5 +183,4 @@ public class QuestionManager {
 		qm.addQuestion(question1);
 		System.out.println(qm);
 	}
-}	
-
+}
