@@ -31,7 +31,8 @@ public class CategoryGame extends Game {
 	 * @param category
 	 * @param difficulty
 	 */
-	public CategoryGame(String category, int difficulty){
+	public CategoryGame(Player player, String category, int difficulty){
+		super(player);
 		this.category = category;
 		this.difficulty = difficulty;
 		scanner = new Scanner(System.in);
@@ -44,6 +45,7 @@ public class CategoryGame extends Game {
 	 * Build an ArrayList of Questions to be used in this Game
 	 * @return
 	 */
+	@Override
 	public ArrayList<Question> buildQuestions(){
 		ArrayList<Question> qs = qm.getQuestions(category);
 		for (Question q : qs){
@@ -64,6 +66,15 @@ public class CategoryGame extends Game {
 		
 	}
 	
+	/**
+	 * Asks a single question, with a time limit for the player
+	 * to answer.
+	 * 
+	 * @param q
+	 * 		The Question being asked.
+	 * @throws IOException
+	 */
+	@Override
 	public void askQuestion(Question q) throws IOException {
 		
 		System.out.println(q.getQuestion());
@@ -80,15 +91,26 @@ public class CategoryGame extends Game {
 		
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		String answer = in.readLine();
-		if (answer.equals(q.getCorrectAnswer())){
+		if (judgeAnswer(q, answer)){
 			score += 10;
+			setCorrectAnswers(getCorrectAnswers() + 1);
 			System.out.println("Correct \n");
 			timer.cancel();
 		}
 		timer.cancel();
-		
-			
+	}
+	
+	@Override
+	public void playGame() {
+		for (int i = 0; i < 10; i++) {
+			try {
+				askQuestion(questions.get(i));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
+		updatePlayer();
+	}
 
 	public static void main (String[] args) throws IOException{
 		String category = "Star Wars";
@@ -98,9 +120,9 @@ public class CategoryGame extends Game {
 		Question question1 = new Question(category, q1, a1, d1);
 		question1.addIncorrect("Starkiller");
 		question1.addIncorrect("Solo");
-		CategoryGame cm = new CategoryGame(category, 1);
-		cm.askQuestion(question1);
-		System.out.println(cm.score);
+//		CategoryGame cm = new CategoryGame(category, 1);
+//		cm.askQuestion(question1);
+//		System.out.println(cm.score);
 	}
 }
 
