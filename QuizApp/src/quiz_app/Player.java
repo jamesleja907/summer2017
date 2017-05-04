@@ -6,6 +6,8 @@ import java.util.HashMap;
  * The Class for player in the app.
  */
 public class Player extends Account {
+	/** The serializing id*/
+	private static final long serialVersionUID = 2671901295270695198L;
 	/** The Player's name. */
 	private String name;
 	/** The unique login ID. */
@@ -14,11 +16,11 @@ public class Player extends Account {
 	private String password;
 	/** The total score of all questions this player had answered. */
 	private Integer total_score;
-	/** The total correct socre of all questions this player has answered. */
+	/** The total correct score of all questions this player has answered. */
 	private Integer total_correct;
 	/** Scores the player get for different categories. */
 	private HashMap<String, Integer> category_scores;
-	/** Palyer's avator. This should be an address to a local file. */
+	/** Palyer's avatar. This should be an address to a local file. */
 	private String avator;
 	/** Security question for changing password. */
 	private String question;
@@ -27,7 +29,7 @@ public class Player extends Account {
 
 	/**
 	 * Create a player with name, password, total score, total correct scores,
-	 * and socres in each catgory.
+	 * and scores in each category.
 	 * 
 	 * @param name
 	 *            the name of this Player
@@ -36,7 +38,7 @@ public class Player extends Account {
 	 * @param login
 	 *            the user id
 	 * @param avator
-	 *            palyer's avator
+	 *            palyer's avatar
 	 */
 	public Player(String name, String login, String password, String avator) {
 		super(login, password);
@@ -67,7 +69,7 @@ public class Player extends Account {
 	}
 
 	/**
-	 * @return the player's interger login id.
+	 * @return the player's string login id.
 	 */
 	public String getLogin() {
 		return login;
@@ -171,17 +173,17 @@ public class Player extends Account {
 	}
 
 	/**
-	 * @return the Player's avator.
+	 * @return the Player's avatar.
 	 */
 	public String getAvator() {
 		return avator;
 	}
 
 	/**
-	 * Update the Player's avator
+	 * Update the Player's avatar
 	 * 
 	 * @param avator
-	 *            the local address of file avator
+	 *            the local address of file avatar
 	 */
 	public void setAvator(String avator) {
 		this.avator = avator;
@@ -209,7 +211,7 @@ public class Player extends Account {
 	}
 
 	/**
-	 * @return the answer to the player's sectury question.
+	 * @return the answer to the player's security question.
 	 */
 	public String getAnswer() {
 		return answer;
