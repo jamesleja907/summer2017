@@ -2,6 +2,7 @@ package quiz_app;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Question implements Serializable {
 
@@ -99,6 +100,24 @@ public class Question implements Serializable {
 
 	public void addIncorrect(String incorrect) {
 		this.incorrects.add(incorrect);
+	}
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null) {
+			return false;
+		}
+		if (getClass() != o.getClass()) {
+			return false;
+		}
+		Question q = (Question) o;
+		return Objects.equals(question, q.question) 
+				&& Objects.equals(correctAnswer, q.correctAnswer);
+				
+		
+		
 	}
 
 }
