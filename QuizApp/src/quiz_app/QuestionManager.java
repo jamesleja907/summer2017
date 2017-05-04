@@ -170,17 +170,23 @@ public class QuestionManager {
 		return result;
 	}
 
-	public static void main(String[] args) {
-		QuestionManager qm = new QuestionManager();
-		String category = "Star Wars";
-		qm.addCategory(category);
-		String q1 = "What is Luke's last name?";
-		int d1 = 1;
-		String a1 = "Skywalker";
-		Question question1 = new Question(category, q1, a1, d1);
-		question1.addIncorrect("Starkiller");
-		question1.addIncorrect("Solo");
-		qm.addQuestion(question1);
+	public static void main(String[] args) throws IOException {
+		QuestionManager qm = QuestionManager.getInstance();
+//		String category = "Star Wars";
+//		qm.addCategory(category);
+//		String q1 = "What is Luke's last name?";
+//		int d1 = 1;
+//		String a1 = "Skywalker";
+//		Question question1 = new Question(category, q1, a1, d1);
+//		question1.addIncorrect("Starkiller");
+//		question1.addIncorrect("Solo");
+//		qm.addQuestion(question1);
+//		String q2 = "Who shot first?";
+//		int d2 = 2;
+//		String a2 = "Han Solo";
+//		Question question2 = new Question(category, q2, a2, d2);
+//		qm.addQuestion(question2);
+//		qm.saveToFile();
 		System.out.println(qm);
 	}
 }
