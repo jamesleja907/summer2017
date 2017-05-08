@@ -147,12 +147,20 @@ public class QuestionManager {
 	 * 
 	 * @return The array list of Questions.
 	 */
-	public ArrayList<Question> getQuestions(String category) {
+	public ArrayList<Question> listCategory(String category) {
 		if (questions.containsKey(category)) {
 			return questions.get(category);
 		} else {
 			return null;
 		}
+	}
+
+	public Map<String, ArrayList<Question>> getQuestions() {
+		return questions;
+	}
+
+	public void setQuestions(Map<String, ArrayList<Question>> questions) {
+		this.questions = questions;
 	}
 
 	/**
@@ -163,7 +171,7 @@ public class QuestionManager {
 		for (String category : questions.keySet()) {
 			result += "=== " + category + " ===" + "\n";
 			for (Question q : questions.get(category)) {
-				result += q.getQuestion() + "\n";
+				result += q.getQuestion() + " "  + q.getDifficulty() + "\n";
 			}
 			result += "\n";
 		}
