@@ -6,34 +6,34 @@ import java.util.HashMap;
  * The Class for player in the app.
  */
 public class Player extends Account {
-	
-	/** The serializing id*/
+
+	/** The serializing id */
 	private static final long serialVersionUID = 2671901295270695198L;
-	
+
 	/** The Player's name. */
 	private String name;
-	
+
 	/** The unique login ID. */
 	private String login;
-	
+
 	/** The password for login. */
 	private String password;
-	
+
 	/** The total score of all questions this player had answered. */
 	private Integer total_score;
-	
+
 	/** The total correct score of all questions this player has answered. */
 	private Integer total_correct;
-	
+
 	/** Scores the player get for different categories. */
 	private HashMap<String, Integer> category_scores;
-	
+
 	/** Player's avatar. This should be an address to a local file. */
 	private String avator;
-	
+
 	/** Security question for changing password. */
 	private String question;
-	
+
 	/** The answer to the security question. */
 	private String answer;
 
