@@ -15,19 +15,27 @@ import java.util.TimerTask;
  *
  */
 public class CategoryGame extends Game {
-
+	
+	/** The Question Manager. */
 	private QuestionManager qm;
+	
+	/** The category of the game. */
 	protected String category;
+	
+	/** The difficulty of the game. */
 	private int difficulty;
+	
+	/** The score of the game. */
 	private int score;
-	private int time;
+	
+	/** Generator to pick random questions at a particular difficulty. */
 	private Random randomGenerator;
-	private Timer timer;
+	
+	/** The questions to be asked in the game. */
 	private ArrayList<Question> questions;
-	private Scanner scanner;
 
 	/**
-	 * Create a CategoryGame based on the desired category and difficulty
+	 * Create a CategoryGame based on the desired category and difficulty.
 	 * 
 	 * @param category
 	 * @param difficulty
@@ -36,7 +44,6 @@ public class CategoryGame extends Game {
 		super(player);
 		this.category = category;
 		this.difficulty = difficulty;
-		scanner = new Scanner(System.in);
 		qm = QuestionManager.getInstance();
 		randomGenerator = new Random();
 		questions = buildQuestions();
@@ -44,9 +51,9 @@ public class CategoryGame extends Game {
 	}
 
 	/**
-	 * Build an ArrayList of Questions to be used in this Game
+	 * Build an ArrayList of Questions to be used in this Game.
 	 * 
-	 * @return
+	 * @return the array of questions for the game.
 	 */
 	@Override
 	public ArrayList<Question> buildQuestions() {
@@ -104,7 +111,12 @@ public class CategoryGame extends Game {
 		}
 		timer.cancel();
 	}
-
+	
+	/**
+	 * Asks each question to the player, and updates the Player's score
+	 * after the game is completed.
+	 * 
+	 */
 	@Override
 	public void playGame() {
 		int numberQuestions = questions.size();
