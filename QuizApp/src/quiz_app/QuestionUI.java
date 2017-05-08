@@ -14,13 +14,14 @@ public class QuestionUI {
 
 	private final JFrame jframe;
 
-	private JPanel buttonPanel;
+	private JPanel questionPanel;
 
 	private JTextArea textarea;
 
 	private Container container;
-	
+
 	private JPanel categoryPanel;
+	private JTextField categoryInput;
 
 	private QuestionUI() {
 		qm = QuestionManager.getInstance();
@@ -28,71 +29,61 @@ public class QuestionUI {
 		jframe = new JFrame();
 		jframe.setTitle("Question Manager");
 		jframe.setSize(new Dimension(1000, 1000));
-		
+
 		// Window listeners for closing?? or save on button mashing
-		
+
 		// ========== buttonPanel ==========
 		TextFieldMouseListener m1 = new TextFieldMouseListener();
 		JTextField cat_text = new JTextField();
-		cat_text.setSize(175, 29);
-		cat_text.setLocation(100, 6);
+		cat_text.setBounds(110, 670, 175, 29);
 		cat_text.addMouseListener(m1);
 
 		JLabel catLabel = new JLabel();
-		catLabel.setSize(100, 29);
-		catLabel.setLocation(0, 6);
+		catLabel.setBounds(10, 670, 100, 29);
 		catLabel.setText("Category");
 
 		JTextField qText = new JTextField();
-		qText.setSize(175, 29);
-		qText.setLocation(100, 35);
+		qText.setBounds(110, 711, 175, 29);
 		qText.addMouseListener(m1);
 
 		JLabel qLabel = new JLabel();
-		qLabel.setSize(100, 29);
-		qLabel.setLocation(0, 35);
+		qLabel.setBounds(10, 711, 100, 29);
 		qLabel.setText("Question");
 
 		JTextField cAnswer = new JTextField();
-		cAnswer.setSize(175, 29);
-		cAnswer.setLocation(100, 64);
+		cAnswer.setBounds(110, 752, 175, 29);
 		cAnswer.addMouseListener(m1);
 
 		JLabel cLabel = new JLabel();
-		cLabel.setSize(100, 29);
-		cLabel.setLocation(0, 64);
+		cLabel.setBounds(10, 752, 100, 29);
 		cLabel.setText("Correct Answer");
 
 		JTextField diffText = new JTextField();
-		diffText.setSize(175, 29);
-		diffText.setLocation(100, 93);
+		diffText.setBounds(110, 793, 175, 29);
 		diffText.addMouseListener(m1);
 
 		JLabel diffLabel = new JLabel();
-		diffLabel.setSize(100, 29);
-		diffLabel.setLocation(0, 93);
+		diffLabel.setBounds(10, 793, 100, 29);
 		diffLabel.setText("Difficulty (1-3)");
 
-		buttonPanel = new JPanel();
-		buttonPanel.setSize(300, 343);
-		buttonPanel.setLocation(400, 557);
-		buttonPanel.setLayout(null);
-		buttonPanel.add(cat_text);
-		buttonPanel.add(qText);
-		buttonPanel.add(cAnswer);
-		buttonPanel.add(diffText);
-		buttonPanel.add(catLabel);
-		buttonPanel.add(qLabel);
-		buttonPanel.add(diffLabel);
-		buttonPanel.add(cLabel);
+		questionPanel = new JPanel();
+		questionPanel.setBounds(374, 45, 300, 902);
+		questionPanel.setLayout(null);
+		questionPanel.add(cat_text);
+		questionPanel.add(qText);
+		questionPanel.add(cAnswer);
+		questionPanel.add(diffText);
+		questionPanel.add(catLabel);
+		questionPanel.add(qLabel);
+		questionPanel.add(diffLabel);
+		questionPanel.add(cLabel);
 
 		container = jframe.getContentPane();
 		container.setLayout(null);
-		container.add(buttonPanel);
+		container.add(questionPanel);
 
 		JButton addQuestion = new JButton("Add Question");
-		addQuestion.setSize(175, 29);
-		addQuestion.setLocation(100, 122);
+		addQuestion.setBounds(110, 834, 175, 29);
 		addQuestion.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -115,40 +106,79 @@ public class QuestionUI {
 			}
 		});
 
-		buttonPanel.add(addQuestion);
+		questionPanel.add(addQuestion);
+		
+		DefaultListModel<String> model2 = new DefaultListModel<String>();
+		
+		model2.removeAllElements();
+		// Try display questions in the STAR WARS
+		for(Question q : qm.listCategory("Star Wars")) {
+			System.out.println(q.getQuestion());
+			model2.addElement(q.getQuestion());
+		}
+		container.add(questionPanel);
+		
+		JScrollPane scrollPaneQuestion = new JScrollPane();
+		scrollPaneQuestion.setBounds(6, 6, 290, 641);
+		questionPanel.add(scrollPaneQuestion);
+		
+		JLabel lblQuestions = new JLabel("Questions");
+		scrollPaneQuestion.setColumnHeaderView(lblQuestions);
+		lblQuestions.setHorizontalAlignment(SwingConstants.CENTER);
+		JList<String> listquestion = new JList<String>(model2);
+		scrollPaneQuestion.setViewportView(listquestion);
+		listquestion.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		listquestion.setBorder(new LineBorder(Color.GRAY));
 		
 		// ========== CategoryPanel ==========
 		// Create JPanel for category and display all imported categories.
 		categoryPanel = new JPanel();
-		categoryPanel.setBounds(50, 45, 250, 740);
-		categoryPanel.setBorder(new LineBorder(Color.GRAY));
+		categoryPanel.setBounds(50, 45, 250, 902);
+		categoryPanel.setBorder(null);
 		categoryPanel.setLayout(null);
-		
+
 		// Create the title for list of categories.
-		JLabel listimageslbl = new JLabel("List of Categories");
-		listimageslbl.setHorizontalAlignment(SwingConstants.CENTER);
-		listimageslbl.setBounds(0, 6, 250, 16);
-		categoryPanel.add(listimageslbl);
-		
-		// Create the viewer for list of categories.
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(5, 36, 240, 698);
-		categoryPanel.add(scrollPane);
-		
 		// Create the category counter.
-		JLabel categorycount = new JLabel("(0)");
-		categorycount.setBounds(185, 6, 59, 19);
-		categoryPanel.add(categorycount);
-		
+		int num_cat = qm.getQuestions().size();
+
 		DefaultListModel<String> model = new DefaultListModel<String>();
-		JList<String> listcategory = new JList<String>(model);
-		listcategory.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		listcategory.setBorder(new LineBorder(Color.GRAY));
-		listcategory.setBounds(5, 110, 240, 581);
 		
+		model.removeAllElements();
+		for (String category : qm.getQuestions().keySet()) {
+			model.addElement(category);
+			//System.out.println(category);
+		}
 		container.add(categoryPanel);
 		
-		for(String : )
+		JButton addCategorybtn = new JButton("Add Category");
+		addCategorybtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		
+				// Create the viewer for list of categories.
+				JScrollPane scrollPaneCategory = new JScrollPane();
+				scrollPaneCategory.setBounds(6, 6, 240, 713);
+				categoryPanel.add(scrollPaneCategory);
+				JLabel listimageslbl = new JLabel("List of Categories " + "(" + num_cat + ")");
+				scrollPaneCategory.setColumnHeaderView(listimageslbl);
+				listimageslbl.setHorizontalAlignment(SwingConstants.CENTER);
+		JList<String> listcategory = new JList<String>(model);
+		scrollPaneCategory.setViewportView(listcategory);
+		listcategory.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		listcategory.setBorder(new LineBorder(Color.GRAY));
+		addCategorybtn.setBounds(60, 834, 130, 29);
+		categoryPanel.add(addCategorybtn);
+		
+		categoryInput = new JTextField();
+		categoryInput.setBounds(60, 787, 130, 26);
+		categoryPanel.add(categoryInput);
+		categoryInput.setColumns(10);
+		
+		JLabel lblNewCategory = new JLabel("New Category:");
+		lblNewCategory.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewCategory.setBounds(60, 768, 130, 16);
+		categoryPanel.add(lblNewCategory);
 
 	}
 
@@ -162,5 +192,4 @@ public class QuestionUI {
 		q.createAndShowGui();
 
 	}
-
 }
