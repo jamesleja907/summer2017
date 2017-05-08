@@ -101,6 +101,7 @@ public class Question implements Serializable {
 	public void addIncorrect(String incorrect) {
 		this.incorrects.add(incorrect);
 	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
@@ -113,11 +114,8 @@ public class Question implements Serializable {
 			return false;
 		}
 		Question q = (Question) o;
-		return Objects.equals(question, q.question) 
-				&& Objects.equals(correctAnswer, q.correctAnswer);
-				
-		
-		
+		return Objects.equals(question, q.question) && Objects.equals(correctAnswer, q.correctAnswer);
+
 	}
 
 }
