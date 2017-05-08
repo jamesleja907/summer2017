@@ -39,7 +39,7 @@ public class CategoryGame extends Game {
 		scanner = new Scanner(System.in);
 		qm = QuestionManager.getInstance();
 		randomGenerator = new Random();
-		ArrayList<Question> questions = buildQuestions();
+		questions = buildQuestions();
 
 	}
 
@@ -58,6 +58,7 @@ public class CategoryGame extends Game {
 		}
 		ArrayList<Question> questions = new ArrayList<Question>();
 		if (qs.size() <= 10) {
+			System.out.println(qs.size());
 			return qs;
 		}
 		for (int i = 0; i < 10; i++) {
@@ -98,13 +99,16 @@ public class CategoryGame extends Game {
 			setCorrectAnswers(getCorrectAnswers() + 1);
 			System.out.println("Correct \n");
 			timer.cancel();
+		} else {
+			System.out.println("Sorry that's wrong");
 		}
 		timer.cancel();
 	}
 
 	@Override
 	public void playGame() {
-		for (int i = 0; i < 10; i++) {
+		int numberQuestions = questions.size();
+		for (int i = 0; i < numberQuestions; i++) {
 			try {
 				askQuestion(questions.get(i));
 			} catch (IOException e) {
@@ -115,6 +119,7 @@ public class CategoryGame extends Game {
 	}
 
 	public static void main(String[] args) throws IOException {
+		Player p1 = new Player("Timmay", "login@domain.com", "gobbles", "/avatar");
 		String category = "Star Wars";
 		String q1 = "What is Luke's last name?";
 		int d1 = 1;
@@ -122,8 +127,9 @@ public class CategoryGame extends Game {
 		Question question1 = new Question(category, q1, a1, d1);
 		question1.addIncorrect("Starkiller");
 		question1.addIncorrect("Solo");
-		// CategoryGame cm = new CategoryGame(category, 1);
-		// cm.askQuestion(question1);
-		// System.out.println(cm.score);
+		CategoryGame cm = new CategoryGame(p1, category, 1);
+		System.out.println(cm.questions);
+		cm.playGame();
+		System.out.println(cm.score);
 	}
 }
