@@ -50,7 +50,7 @@ public class CategoryGame extends Game {
 	 */
 	@Override
 	public ArrayList<Question> buildQuestions() {
-		ArrayList<Question> qs = qm.getQuestions(category);
+		ArrayList<Question> qs = qm.listCategory(category);
 		for (Question q : qs) {
 			if (q.getDifficulty() != this.difficulty) {
 				qs.remove(q);
