@@ -137,6 +137,7 @@ public class QuestionManager {
 	public void addCategory(String category) {
 		ArrayList<Question> categoryQuestions = new ArrayList<Question>();
 		questions.put(category, categoryQuestions);
+
 	}
 
 	/**
@@ -161,6 +162,15 @@ public class QuestionManager {
 
 	public void setQuestions(Map<String, ArrayList<Question>> questions) {
 		this.questions = questions;
+	}
+	
+	public int getTotalQuestions() {
+		int result = 0;
+		ArrayList<String> categories = (ArrayList<String>) questions.keySet();
+		for (String category : categories) {
+			result += listCategory(category).size();
+		}
+		return result;
 	}
 
 	/**

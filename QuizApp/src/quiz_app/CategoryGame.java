@@ -15,19 +15,27 @@ import java.util.TimerTask;
  *
  */
 public class CategoryGame extends Game {
-
+	
+	/** The Question Manager. */
 	private QuestionManager qm;
+	
+	/** The category of the game. */
 	protected String category;
+	
+	/** The difficulty of the game. */
 	private int difficulty;
+	
+	/** The score of the game. */
 	private int score;
-	private int time;
+	
+	/** Generator to pick random questions at a particular difficulty. */
 	private Random randomGenerator;
-	private Timer timer;
+	
+	/** The questions to be asked in the game. */
 	private ArrayList<Question> questions;
-	private Scanner scanner;
 
 	/**
-	 * Create a CategoryGame based on the desired category and difficulty
+	 * Create a CategoryGame based on the desired category and difficulty.
 	 * 
 	 * @param category
 	 * @param difficulty
@@ -36,37 +44,35 @@ public class CategoryGame extends Game {
 		super(player);
 		this.category = category;
 		this.difficulty = difficulty;
-		scanner = new Scanner(System.in);
 		qm = QuestionManager.getInstance();
 		randomGenerator = new Random();
-		questions = buildQuestions();
+		buildQuestions();
 
 	}
 
 	/**
-	 * Build an ArrayList of Questions to be used in this Game
+	 * Build an ArrayList of Questions to be used in this Game.
 	 * 
-	 * @return
+	 * @return the array of questions for the game.
 	 */
 	@Override
-	public ArrayList<Question> buildQuestions() {
+	public void buildQuestions() {
 		ArrayList<Question> qs = qm.listCategory(category);
 		for (Question q : qs) {
 			if (q.getDifficulty() != this.difficulty) {
 				qs.remove(q);
 			}
 		}
-		ArrayList<Question> questions = new ArrayList<Question>();
+		questions = new ArrayList<Question>();
 		if (qs.size() <= 10) {
-			System.out.println(qs.size());
-			return qs;
+			questions = qs;
 		}
 		for (int i = 0; i < 10; i++) {
 			int index = randomGenerator.nextInt(qs.size());
 			questions.add(qs.get(index));
 			qs.remove(index);
 		}
-		return questions;
+		
 
 	}
 
@@ -104,7 +110,12 @@ public class CategoryGame extends Game {
 		}
 		timer.cancel();
 	}
-
+	
+	/**
+	 * Asks each question to the player, and updates the Player's score
+	 * after the game is completed.
+	 * 
+	 */
 	@Override
 	public void playGame() {
 		int numberQuestions = questions.size();
@@ -128,7 +139,6 @@ public class CategoryGame extends Game {
 		question1.addIncorrect("Starkiller");
 		question1.addIncorrect("Solo");
 		CategoryGame cm = new CategoryGame(p1, category, 1);
-		System.out.println(cm.questions);
 		cm.playGame();
 		System.out.println(cm.score);
 	}
