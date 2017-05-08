@@ -1,6 +1,8 @@
 package quiz_app;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +19,8 @@ public class QuestionUI {
 	private JTextArea textarea;
 
 	private Container container;
+	
+	private JPanel categoryPanel;
 
 	private QuestionUI() {
 		qm = QuestionManager.getInstance();
@@ -24,7 +28,7 @@ public class QuestionUI {
 		jframe = new JFrame();
 		jframe.setTitle("Question Manager");
 		jframe.setSize(new Dimension(1000, 1000));
-
+		
 		// Window listeners for closing?? or save on button mashing
 
 		TextFieldMouseListener m1 = new TextFieldMouseListener();
@@ -69,8 +73,8 @@ public class QuestionUI {
 		diffLabel.setText("Difficulty (1-3)");
 
 		buttonPanel = new JPanel();
-		buttonPanel.setSize(900, 900);
-		buttonPanel.setLocation(100, 100);
+		buttonPanel.setSize(300, 343);
+		buttonPanel.setLocation(400, 557);
 		buttonPanel.setLayout(null);
 		buttonPanel.add(cat_text);
 		buttonPanel.add(qText);
@@ -111,6 +115,30 @@ public class QuestionUI {
 		});
 
 		buttonPanel.add(addQuestion);
+		
+		categoryPanel = new JPanel();
+		categoryPanel.setBounds(50, 45, 250, 740);
+		categoryPanel.setBorder(new LineBorder(Color.GRAY));
+		categoryPanel.setLayout(null);
+		
+		// Create title for list of categories.
+		JLabel listimageslbl = new JLabel("List of Categories");
+		listimageslbl.setHorizontalAlignment(SwingConstants.CENTER);
+		listimageslbl.setBounds(0, 6, 250, 16);
+		categoryPanel.add(listimageslbl);
+		
+		// Create viewer for list of categories.
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(5, 110, 240, 581);
+		this.add(scrollPane);
+		
+		DefaultListModel<String> model = new DefaultListModel<String>();
+		JList<String> listcategory = new JList<String>(model);
+		listcategory.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		listcategory.setBorder(new LineBorder(Color.GRAY));
+		listcategory.setBounds(5, 110, 240, 581);
+		
+		container.add(categoryPanel);
 
 	}
 
