@@ -46,7 +46,7 @@ public class CategoryGame extends Game {
 		this.difficulty = difficulty;
 		qm = QuestionManager.getInstance();
 		randomGenerator = new Random();
-		questions = buildQuestions();
+		buildQuestions();
 
 	}
 
@@ -56,24 +56,24 @@ public class CategoryGame extends Game {
 	 * @return the array of questions for the game.
 	 */
 	@Override
-	public ArrayList<Question> buildQuestions() {
+	public void buildQuestions() {
 		ArrayList<Question> qs = qm.listCategory(category);
 		for (Question q : qs) {
 			if (q.getDifficulty() != this.difficulty) {
 				qs.remove(q);
 			}
 		}
-		ArrayList<Question> questions = new ArrayList<Question>();
+		questions = new ArrayList<Question>();
 		if (qs.size() <= 10) {
 			System.out.println(qs.size());
-			return qs;
+			questions = qs;
 		}
 		for (int i = 0; i < 10; i++) {
 			int index = randomGenerator.nextInt(qs.size());
 			questions.add(qs.get(index));
 			qs.remove(index);
 		}
-		return questions;
+		
 
 	}
 
