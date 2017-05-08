@@ -65,7 +65,6 @@ public class CategoryGame extends Game {
 		}
 		questions = new ArrayList<Question>();
 		if (qs.size() <= 10) {
-			System.out.println(qs.size());
 			questions = qs;
 		}
 		for (int i = 0; i < 10; i++) {
@@ -140,7 +139,6 @@ public class CategoryGame extends Game {
 		question1.addIncorrect("Starkiller");
 		question1.addIncorrect("Solo");
 		CategoryGame cm = new CategoryGame(p1, category, 1);
-		System.out.println(cm.questions);
 		cm.playGame();
 		System.out.println(cm.score);
 	}
