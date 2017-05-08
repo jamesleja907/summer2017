@@ -30,7 +30,8 @@ public class QuestionUI {
 		jframe.setSize(new Dimension(1000, 1000));
 		
 		// Window listeners for closing?? or save on button mashing
-
+		
+		// ========== buttonPanel ==========
 		TextFieldMouseListener m1 = new TextFieldMouseListener();
 		JTextField cat_text = new JTextField();
 		cat_text.setSize(175, 29);
@@ -116,21 +117,28 @@ public class QuestionUI {
 
 		buttonPanel.add(addQuestion);
 		
+		// ========== CategoryPanel ==========
+		// Create JPanel for category and display all imported categories.
 		categoryPanel = new JPanel();
 		categoryPanel.setBounds(50, 45, 250, 740);
 		categoryPanel.setBorder(new LineBorder(Color.GRAY));
 		categoryPanel.setLayout(null);
 		
-		// Create title for list of categories.
+		// Create the title for list of categories.
 		JLabel listimageslbl = new JLabel("List of Categories");
 		listimageslbl.setHorizontalAlignment(SwingConstants.CENTER);
 		listimageslbl.setBounds(0, 6, 250, 16);
 		categoryPanel.add(listimageslbl);
 		
-		// Create viewer for list of categories.
+		// Create the viewer for list of categories.
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(5, 110, 240, 581);
-		this.add(scrollPane);
+		scrollPane.setBounds(5, 36, 240, 698);
+		categoryPanel.add(scrollPane);
+		
+		// Create the category counter.
+		JLabel categorycount = new JLabel("(0)");
+		categorycount.setBounds(185, 6, 59, 19);
+		categoryPanel.add(categorycount);
 		
 		DefaultListModel<String> model = new DefaultListModel<String>();
 		JList<String> listcategory = new JList<String>(model);
@@ -139,6 +147,8 @@ public class QuestionUI {
 		listcategory.setBounds(5, 110, 240, 581);
 		
 		container.add(categoryPanel);
+		
+		for(String : )
 
 	}
 
