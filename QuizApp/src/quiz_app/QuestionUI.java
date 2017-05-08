@@ -74,8 +74,8 @@ public class QuestionUI {
 		
 		
 		buttonPanel = new JPanel();
-		buttonPanel.setSize(900, 900);
-		buttonPanel.setLocation(100, 100);
+		buttonPanel.setSize(300, 343);
+		buttonPanel.setLocation(400, 557);
 		buttonPanel.setLayout(null);
 		buttonPanel.add(cat_text);
 		buttonPanel.add(qText);
