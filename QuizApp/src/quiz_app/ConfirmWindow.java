@@ -17,7 +17,7 @@ public class ConfirmWindow {
 	
 	private JLabel jLabel;
 	
-	public ConfirmWindow(ActionListener action) {
+	public ConfirmWindow(ActionListener action, String message) {
 		
 		jFrame = new JFrame();
 		jFrame.setTitle("Confirm");
@@ -26,7 +26,7 @@ public class ConfirmWindow {
 		contents = jFrame.getContentPane();
 		contents.setLayout(null);
 		
-		jLabel = new JLabel("Are you sure?");
+		jLabel = new JLabel(message);
 		jLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		jLabel.setSize(new Dimension(593, 50));
 		jLabel.setLocation(6, 99);
@@ -71,7 +71,7 @@ public class ConfirmWindow {
 				System.out.println("Yay");
 			}
 		};
-		ConfirmWindow q = new ConfirmWindow(action);
+		ConfirmWindow q = new ConfirmWindow(action, "Are you sure?");
 	}
 		
 		
