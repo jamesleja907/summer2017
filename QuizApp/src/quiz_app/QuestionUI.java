@@ -28,46 +28,46 @@ public class QuestionUI {
 
 		jframe = new JFrame();
 		jframe.setTitle("Question Manager");
-		jframe.setSize(new Dimension(1000, 1000));
+		jframe.setSize(new Dimension(1200, 799));
 
 		// Window listeners for closing?? or save on button mashing
 
 		// ========== buttonPanel ==========
 		TextFieldMouseListener m1 = new TextFieldMouseListener();
 		JTextField cat_text = new JTextField();
-		cat_text.setBounds(110, 670, 175, 29);
+		cat_text.setBounds(110, 542, 175, 29);
 		cat_text.addMouseListener(m1);
 
 		JLabel catLabel = new JLabel();
-		catLabel.setBounds(10, 670, 100, 29);
+		catLabel.setBounds(10, 542, 100, 29);
 		catLabel.setText("Category");
 
 		JTextField qText = new JTextField();
-		qText.setBounds(110, 711, 175, 29);
+		qText.setBounds(110, 583, 175, 29);
 		qText.addMouseListener(m1);
 
 		JLabel qLabel = new JLabel();
-		qLabel.setBounds(10, 711, 100, 29);
+		qLabel.setBounds(10, 583, 100, 29);
 		qLabel.setText("Question");
 
 		JTextField cAnswer = new JTextField();
-		cAnswer.setBounds(110, 752, 175, 29);
+		cAnswer.setBounds(110, 624, 175, 29);
 		cAnswer.addMouseListener(m1);
 
 		JLabel cLabel = new JLabel();
-		cLabel.setBounds(10, 752, 100, 29);
+		cLabel.setBounds(10, 624, 100, 29);
 		cLabel.setText("Correct Answer");
 
 		JTextField diffText = new JTextField();
-		diffText.setBounds(110, 793, 175, 29);
+		diffText.setBounds(110, 665, 175, 29);
 		diffText.addMouseListener(m1);
 
 		JLabel diffLabel = new JLabel();
-		diffLabel.setBounds(10, 793, 100, 29);
+		diffLabel.setBounds(10, 665, 100, 29);
 		diffLabel.setText("Difficulty (1-3)");
 
 		questionPanel = new JPanel();
-		questionPanel.setBounds(374, 45, 300, 902);
+		questionPanel.setBounds(374, 20, 300, 750);
 		questionPanel.setLayout(null);
 		questionPanel.add(cat_text);
 		questionPanel.add(qText);
@@ -83,7 +83,7 @@ public class QuestionUI {
 		container.add(questionPanel);
 
 		JButton addQuestion = new JButton("Add Question");
-		addQuestion.setBounds(110, 834, 175, 29);
+		addQuestion.setBounds(110, 706, 175, 29);
 		addQuestion.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -119,7 +119,7 @@ public class QuestionUI {
 		container.add(questionPanel);
 		
 		JScrollPane scrollPaneQuestion = new JScrollPane();
-		scrollPaneQuestion.setBounds(6, 6, 290, 641);
+		scrollPaneQuestion.setBounds(6, 6, 290, 530);
 		questionPanel.add(scrollPaneQuestion);
 		
 		JLabel lblQuestions = new JLabel("Questions");
@@ -133,7 +133,7 @@ public class QuestionUI {
 		// ========== CategoryPanel ==========
 		// Create JPanel for category and display all imported categories.
 		categoryPanel = new JPanel();
-		categoryPanel.setBounds(50, 45, 250, 902);
+		categoryPanel.setBounds(50, 20, 250, 750);
 		categoryPanel.setBorder(null);
 		categoryPanel.setLayout(null);
 
@@ -158,7 +158,7 @@ public class QuestionUI {
 		
 				// Create the viewer for list of categories.
 				JScrollPane scrollPaneCategory = new JScrollPane();
-				scrollPaneCategory.setBounds(6, 6, 240, 713);
+				scrollPaneCategory.setBounds(6, 6, 240, 530);
 				categoryPanel.add(scrollPaneCategory);
 				JLabel listimageslbl = new JLabel("List of Categories " + "(" + num_cat + ")");
 				scrollPaneCategory.setColumnHeaderView(listimageslbl);
@@ -167,17 +167,17 @@ public class QuestionUI {
 		scrollPaneCategory.setViewportView(listcategory);
 		listcategory.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listcategory.setBorder(new LineBorder(Color.GRAY));
-		addCategorybtn.setBounds(60, 834, 130, 29);
+		addCategorybtn.setBounds(60, 627, 130, 29);
 		categoryPanel.add(addCategorybtn);
 		
 		categoryInput = new JTextField();
-		categoryInput.setBounds(60, 787, 130, 26);
+		categoryInput.setBounds(60, 589, 130, 26);
 		categoryPanel.add(categoryInput);
 		categoryInput.setColumns(10);
 		
 		JLabel lblNewCategory = new JLabel("New Category:");
 		lblNewCategory.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewCategory.setBounds(60, 768, 130, 16);
+		lblNewCategory.setBounds(60, 561, 130, 16);
 		categoryPanel.add(lblNewCategory);
 
 	}
