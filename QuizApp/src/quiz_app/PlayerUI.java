@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 
 public class PlayerUI {
 	 
@@ -53,6 +54,44 @@ public class PlayerUI {
 		JButton btnNewButton = new JButton("Change your avatar");
 		btnNewButton.setBounds(71, 218, 164, 29);
 		jframe.getContentPane().add(btnNewButton);
+		
+		JPanel infoPanel = new JPanel();
+		infoPanel.setBounds(332, 6, 360, 694);
+		jframe.getContentPane().add(infoPanel);
+		infoPanel.setLayout(null);
+		
+		JLabel lblPlayerInfo = new JLabel("Your information");
+		lblPlayerInfo.setBounds(6, 5, 348, 16);
+		lblPlayerInfo.setHorizontalAlignment(SwingConstants.CENTER);
+		infoPanel.add(lblPlayerInfo);
+		
+		JLabel lblLogin = new JLabel("Login:");
+		lblLogin.setBounds(6, 49, 61, 16);
+		infoPanel.add(lblLogin);
+		
+		JLabel lblPlayerLogin = new JLabel(player.getLogin());
+		lblPlayerLogin.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblPlayerLogin.setBounds(214, 49, 146, 16);
+		infoPanel.add(lblPlayerLogin);
+		
+		JLabel lblPassword = new JLabel("Password:");
+		lblPassword.setBounds(6, 90, 74, 16);
+		infoPanel.add(lblPassword);
+		
+		int passwordLength = player.getPassword().length();
+		
+		JLabel lblNewLabel = new JLabel(String.join("", Collections.nCopies(passwordLength, "*")));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblNewLabel.setBounds(167, 90, 187, 16);
+		infoPanel.add(lblNewLabel);
+		
+		JButton btnChangeYourLogin = new JButton("Change login");
+		btnChangeYourLogin.setBounds(6, 139, 155, 29);
+		infoPanel.add(btnChangeYourLogin);
+		
+		JButton btnNewButton_1 = new JButton("Change password");
+		btnNewButton_1.setBounds(199, 139, 155, 29);
+		infoPanel.add(btnNewButton_1);
 		jframe.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		jframe.setVisible(true);
 		

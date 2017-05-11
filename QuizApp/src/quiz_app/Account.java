@@ -7,6 +7,8 @@ import java.io.Serializable;
  */
 public class Account implements Serializable {
 
+	/** To serialize accounts. */
+	private static final long serialVersionUID = -5495483695798467352L;
 	/** The login to the account. */
 	private String login;
 	/** The password of the account. */
@@ -29,7 +31,7 @@ public class Account implements Serializable {
 	 * @return the login of the account.
 	 */
 	public String getLogin() {
-		return login;
+		return this.login;
 	}
 
 	/**
@@ -38,6 +40,7 @@ public class Account implements Serializable {
 	 *            The new login of the account.
 	 */
 	public void setLogin(String login) {
+		// Do we want them to be able to change their login?
 		// Check all other login to make sure the String new_login is unique.
 		this.login = login;
 	}
