@@ -17,15 +17,15 @@ public class CategoryGameUI {
 	
 	private Container container;
 
-	private CategoryGameUI(CategoryGame cm) {
+	public CategoryGameUI(CategoryGame cm) {
 		
 		jframe = new JFrame();
 		jframe.setTitle(cm.category);
 		jframe.setSize(new Dimension(1200, 800));
 		
 		JLabel imageLabel = new JLabel();
-		imageLabel.setSize(new Dimension(1188, 402));
-		imageLabel.setLocation(6, 6);
+		imageLabel.setSize(new Dimension(1200, 400));
+		imageLabel.setLocation(0, 0);
 		
 		BufferedImage img = null;
 		try {
@@ -35,11 +35,36 @@ public class CategoryGameUI {
 		}		
 		ImageIcon nextIcon = new ImageIcon(img.getScaledInstance(1200, 400, img.SCALE_AREA_AVERAGING));
 		imageLabel.setIcon(nextIcon);
+		
+		JPanel questionPanel = new JPanel();
+		questionPanel.setSize(new Dimension(1200, 400));
+		questionPanel.setLocation(0, 400);
+		questionPanel.setLayout(null);
+		
+		JButton button1 = new JButton("Answer 1");
+		button1.setSize(200, 35);
+		button1.setLocation(50, 250);
+		JButton button2 = new JButton("Answer 2");
+		button2.setSize(200, 35);
+		button2.setLocation(350, 250);
+		JButton button3 = new JButton("Answer 3");
+		button3.setSize(200, 35);
+		button3.setLocation(650, 250);
+		JButton button4 = new JButton("Answer 4");
+		button4.setSize(200, 35);
+		button4.setLocation(950, 250);
+		
+		questionPanel.add(button1);
+		questionPanel.add(button2);
+		questionPanel.add(button3);
+		questionPanel.add(button4);
+		
 
 		
 		container = jframe.getContentPane();
 		container.setLayout(null);
 		container.add(imageLabel);
+		container.add(questionPanel);
 		
 		jframe.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		jframe.setVisible(true);
