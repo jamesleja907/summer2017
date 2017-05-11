@@ -78,12 +78,12 @@ public class Player extends Account {
 		this.name = name;
 	}
 
-	/**
-	 * @return the player's string login id.
-	 */
-	public String getLogin() {
-		return login;
-	}
+//	/**
+//	 * @return the player's string login id.
+//	 */
+//	public String getLogin() {
+//		return this.login;
+//	}
 
 	/**
 	 * Set or reset the player's password if the player pass the "old password"
