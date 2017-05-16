@@ -35,10 +35,12 @@ public class QuestionUI {
 	private JTextField textField_1;
 
 	private String selectedCategory;
+	
+	private Question question;
 
 	private QuestionUI() {
 		qm = QuestionManager.getInstance();
-
+		question = null;
 		jframe = new JFrame();
 		jframe.setTitle("Question Manager");
 		jframe.setSize(new Dimension(1280, 800));
@@ -219,6 +221,7 @@ public class QuestionUI {
 				if (qm.listCategory(selectedCategory).size() > 0) {
 					for (Question q : qm.listCategory(selectedCategory)) {
 						if (buff_str.equals(q.getQuestion())) {
+							question = q;
 							textField_Question.setText(q.getQuestion());
 							textField_CorrectAnswer.setText(q.getCorrectAnswer());
 							String diff = Integer.toString(q.getDifficulty());
@@ -274,6 +277,7 @@ public class QuestionUI {
 				buff_str = listcategory.getSelectedValue();
 
 				if (!buff_str.equals("")) {
+					question = null;
 					selectedCategory = buff_str;
 					model2.removeAllElements();
 					textField_Question.setText("");
