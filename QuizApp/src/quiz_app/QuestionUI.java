@@ -24,15 +24,17 @@ public class QuestionUI {
 
 	private JPanel infoPanel;
 
-	private JTextField NewcatInput;
+	private JTextField newCatInput;
 
 	private JTextField infoQuestion;
 
-	private JTextField InfoAns;
+	private JTextField infoAns;
 
 	private JTextField infoDiff;
 
-	private JTextField InfoIncAnsInput;
+	private JTextField infoIncAnsInput;
+
+	private JTextArea infoIncAns;
 
 	private String selectedCategory;
 
@@ -72,10 +74,10 @@ public class QuestionUI {
 		lblIncorrectAnswer.setBounds(6, 278, 446, 29);
 		infoPanel.add(lblIncorrectAnswer);
 
-		InfoAns = new JTextField();
-		InfoAns.setBounds(128, 191, 324, 26);
-		infoPanel.add(InfoAns);
-		InfoAns.setColumns(10);
+		infoAns = new JTextField();
+		infoAns.setBounds(128, 191, 324, 26);
+		infoPanel.add(infoAns);
+		infoAns.setColumns(10);
 
 		JLabel lblDifficulty = new JLabel();
 		lblDifficulty.setText("Difficulty");
@@ -100,10 +102,10 @@ public class QuestionUI {
 		lblQuestion.setBounds(6, 44, 446, 16);
 		infoPanel.add(lblQuestion);
 
-		InfoIncAnsInput = new JTextField();
-		InfoIncAnsInput.setBounds(16, 559, 237, 26);
-		infoPanel.add(InfoIncAnsInput);
-		InfoIncAnsInput.setColumns(10);
+		infoIncAnsInput = new JTextField();
+		infoIncAnsInput.setBounds(16, 559, 237, 26);
+		infoPanel.add(infoIncAnsInput);
+		infoIncAnsInput.setColumns(10);
 
 		JButton btnAddIncorrect = new JButton("Add Incorrect Answer");
 		btnAddIncorrect.setBounds(265, 559, 175, 29);
@@ -113,10 +115,10 @@ public class QuestionUI {
 		btnDeleteQuestion.setBounds(128, 663, 217, 62);
 		infoPanel.add(btnDeleteQuestion);
 
-		JTextArea InfoIncAns = new JTextArea();
-		InfoIncAns.setEditable(false);
+		infoIncAns = new JTextArea();
+		infoIncAns.setEditable(false);
 
-		JScrollPane scroll_IncAnswer = new JScrollPane(InfoIncAns);
+		JScrollPane scroll_IncAnswer = new JScrollPane(infoIncAns);
 		scroll_IncAnswer.setBounds(6, 319, 424, 216);
 		scroll_IncAnswer.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scroll_IncAnswer.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -223,12 +225,12 @@ public class QuestionUI {
 						if (buff_str.equals(q.getQuestion())) {
 							selectedQuestion = q;
 							infoQuestion.setText(q.getQuestion());
-							InfoAns.setText(q.getCorrectAnswer());
+							infoAns.setText(q.getCorrectAnswer());
 							String diff = Integer.toString(q.getDifficulty());
 							infoDiff.setText(diff);
-							InfoIncAns.setText("");
+							infoIncAns.setText("");
 							for (String incAnswer : q.getIncorrects()) {
-								InfoIncAns.append(incAnswer + "\n");
+								infoIncAns.append(incAnswer + "\n");
 							}
 						}
 					}
@@ -275,18 +277,18 @@ public class QuestionUI {
 			public void valueChanged(ListSelectionEvent e) {
 				selectedCategory = listcategory.getSelectedValue();
 
-				if (!selectedCategory.equals("")) {
+				System.out.println(selectedCategory);
+				if ((!selectedCategory.equals("")) && (!selectedCategory.equals(null))) {
 					selectedQuestion = null;
 					model2.removeAllElements();
-					infoQuestion.setText("");
-					InfoAns.setText("");
-					infoDiff.setText("");
+					emptyInfoPanel();
 
 					if (qm.listCategory(selectedCategory).size() > 0) {
 						for (Question q : qm.listCategory(selectedCategory)) {
 							model2.addElement(q.getQuestion());
 						}
 					}
+
 					int num_que = qm.listCategory(selectedCategory).size();
 					lblQuestions.setText("Questions (" + num_que + ")");
 				}
@@ -295,21 +297,21 @@ public class QuestionUI {
 		});
 
 		// Textfield for inputing category
-		NewcatInput = new JTextField();
-		NewcatInput.setBounds(60, 589, 130, 26);
-		categoryPanel.add(NewcatInput);
-		NewcatInput.setColumns(10);
+		newCatInput = new JTextField();
+		newCatInput.setBounds(60, 589, 130, 26);
+		categoryPanel.add(newCatInput);
+		newCatInput.setColumns(10);
 
 		// Button for adding a new category
-		JLabel lblNewCategory = new JLabel("New Category:");
-		lblNewCategory.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewCategory.setBounds(6, 561, 240, 16);
-		categoryPanel.add(lblNewCategory);
+		JLabel newCatLabel = new JLabel("New Category:");
+		newCatLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		newCatLabel.setBounds(6, 561, 240, 16);
+		categoryPanel.add(newCatLabel);
 
 		JButton addCategorybtn = new JButton("Add Category");
 		addCategorybtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String newCat = NewcatInput.getText();
+				String newCat = newCatInput.getText();
 				if (!newCat.equals("")) {
 					qm.addCategory(newCat);
 					try {
@@ -324,11 +326,20 @@ public class QuestionUI {
 		addCategorybtn.setBounds(60, 627, 130, 29);
 		categoryPanel.add(addCategorybtn);
 
-		// Button for deleting a category
 		JButton btnDeleteTheCategory = new JButton("Delete the Category");
 		btnDeleteTheCategory.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				model.removeElement(selectedCategory);
+				qm.removeCategory(selectedCategory);
+				selectedCategory = "";
+				model2.removeAllElements();
+				emptyInfoPanel();
+				selectedQuestion = null;
+				try {
+					qm.saveToFile();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		btnDeleteTheCategory.setBounds(40, 706, 175, 29);
@@ -340,6 +351,14 @@ public class QuestionUI {
 	private void createAndShowGui() {
 		jframe.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		jframe.setVisible(true);
+	}
+
+	private void emptyInfoPanel() {
+		infoQuestion.setText("");
+		infoAns.setText("");
+		infoDiff.setText("");
+		infoIncAns.setText("");
+		infoIncAnsInput.setText("");
 	}
 
 	public static void main(String[] args) {
