@@ -139,6 +139,12 @@ public class QuestionManager {
 		questions.put(category, categoryQuestions);
 	}
 	
+	/**
+	 * Remove the category from the map.
+	 * 
+	 * @param category
+	 * 			The category to be removed.
+	 */
 	public void removeCategory(String category) {
 		if (questions.keySet().contains(category)) {
 			questions.remove(category);
@@ -160,7 +166,10 @@ public class QuestionManager {
 			return null;
 		}
 	}
-
+	
+	/**
+	 * @return the 
+	 */
 	public Map<String, ArrayList<Question>> getQuestions() {
 		return questions;
 	}
