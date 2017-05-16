@@ -24,23 +24,24 @@ public class QuestionUI {
 
 	private JPanel infoPanel;
 
-	private JTextField categoryInput;
+	private JTextField NewcatInput;
 
-	private JTextField textField_Question;
+	private JTextField infoQuestion;
 
-	private JTextField textField_CorrectAnswer;
+	private JTextField InfoAns;
 
-	private JTextField textField_Difficulty;
+	private JTextField infoDiff;
 
-	private JTextField textField_1;
+	private JTextField InfoIncAnsInput;
 
 	private String selectedCategory;
-	
-	private Question question;
+
+	private Question selectedQuestion;
 
 	private QuestionUI() {
 		qm = QuestionManager.getInstance();
-		question = null;
+		selectedCategory = "";
+		selectedQuestion = null;
 		jframe = new JFrame();
 		jframe.setTitle("Question Manager");
 		jframe.setSize(new Dimension(1280, 800));
@@ -55,10 +56,10 @@ public class QuestionUI {
 		jframe.getContentPane().add(infoPanel);
 		infoPanel.setLayout(null);
 
-		textField_Question = new JTextField();
-		textField_Question.setBounds(6, 62, 446, 116);
-		infoPanel.add(textField_Question);
-		textField_Question.setColumns(10);
+		infoQuestion = new JTextField();
+		infoQuestion.setBounds(6, 62, 446, 116);
+		infoPanel.add(infoQuestion);
+		infoQuestion.setColumns(10);
 
 		JLabel labelCorrectAnswer = new JLabel();
 		labelCorrectAnswer.setText("Correct Answer");
@@ -71,20 +72,20 @@ public class QuestionUI {
 		lblIncorrectAnswer.setBounds(6, 278, 446, 29);
 		infoPanel.add(lblIncorrectAnswer);
 
-		textField_CorrectAnswer = new JTextField();
-		textField_CorrectAnswer.setBounds(128, 191, 324, 26);
-		infoPanel.add(textField_CorrectAnswer);
-		textField_CorrectAnswer.setColumns(10);
+		InfoAns = new JTextField();
+		InfoAns.setBounds(128, 191, 324, 26);
+		infoPanel.add(InfoAns);
+		InfoAns.setColumns(10);
 
 		JLabel lblDifficulty = new JLabel();
 		lblDifficulty.setText("Difficulty");
 		lblDifficulty.setBounds(16, 228, 100, 29);
 		infoPanel.add(lblDifficulty);
 
-		textField_Difficulty = new JTextField();
-		textField_Difficulty.setColumns(10);
-		textField_Difficulty.setBounds(128, 229, 324, 26);
-		infoPanel.add(textField_Difficulty);
+		infoDiff = new JTextField();
+		infoDiff.setColumns(10);
+		infoDiff.setBounds(128, 229, 324, 26);
+		infoPanel.add(infoDiff);
 
 		JLabel lblDetails = new JLabel("Details");
 		lblDetails.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -99,10 +100,10 @@ public class QuestionUI {
 		lblQuestion.setBounds(6, 44, 446, 16);
 		infoPanel.add(lblQuestion);
 
-		textField_1 = new JTextField();
-		textField_1.setBounds(16, 559, 237, 26);
-		infoPanel.add(textField_1);
-		textField_1.setColumns(10);
+		InfoIncAnsInput = new JTextField();
+		InfoIncAnsInput.setBounds(16, 559, 237, 26);
+		infoPanel.add(InfoIncAnsInput);
+		InfoIncAnsInput.setColumns(10);
 
 		JButton btnAddIncorrect = new JButton("Add Incorrect Answer");
 		btnAddIncorrect.setBounds(265, 559, 175, 29);
@@ -112,10 +113,10 @@ public class QuestionUI {
 		btnDeleteQuestion.setBounds(128, 663, 217, 62);
 		infoPanel.add(btnDeleteQuestion);
 
-		JTextArea textArea_IncAnswer = new JTextArea();
-		textArea_IncAnswer.setEditable(false);
+		JTextArea InfoIncAns = new JTextArea();
+		InfoIncAns.setEditable(false);
 
-		JScrollPane scroll_IncAnswer = new JScrollPane(textArea_IncAnswer);
+		JScrollPane scroll_IncAnswer = new JScrollPane(InfoIncAns);
 		scroll_IncAnswer.setBounds(6, 319, 424, 216);
 		scroll_IncAnswer.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scroll_IncAnswer.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -124,35 +125,35 @@ public class QuestionUI {
 
 		// ========== questionPanel ==========
 		TextFieldMouseListener m1 = new TextFieldMouseListener();
-		JTextField cat_text = new JTextField();
-		cat_text.setBounds(110, 542, 175, 29);
-		cat_text.addMouseListener(m1);
+		JTextField qCatInput = new JTextField();
+		qCatInput.setBounds(110, 542, 175, 29);
+		qCatInput.addMouseListener(m1);
 
 		// Labels for indicating different inputs.
 		JLabel catLabel = new JLabel();
 		catLabel.setBounds(10, 542, 100, 29);
 		catLabel.setText("Category");
 
-		JTextField qText = new JTextField();
-		qText.setBounds(110, 583, 175, 29);
-		qText.addMouseListener(m1);
+		JTextField qQuestInput = new JTextField();
+		qQuestInput.setBounds(110, 583, 175, 29);
+		qQuestInput.addMouseListener(m1);
 
 		// Need btnlistener to get num_questions in the category
 		JLabel qLabel = new JLabel();
 		qLabel.setBounds(10, 583, 100, 29);
 		qLabel.setText("Question");
 
-		JTextField cAnswer = new JTextField();
-		cAnswer.setBounds(110, 624, 175, 29);
-		cAnswer.addMouseListener(m1);
+		JTextField qCAnsInput = new JTextField();
+		qCAnsInput.setBounds(110, 624, 175, 29);
+		qCAnsInput.addMouseListener(m1);
 
 		JLabel cLabel = new JLabel();
 		cLabel.setBounds(10, 624, 100, 29);
 		cLabel.setText("Correct Answer");
 
-		JTextField diffText = new JTextField();
-		diffText.setBounds(110, 665, 175, 29);
-		diffText.addMouseListener(m1);
+		JTextField qDiffInput = new JTextField();
+		qDiffInput.setBounds(110, 665, 175, 29);
+		qDiffInput.addMouseListener(m1);
 
 		JLabel diffLabel = new JLabel();
 		diffLabel.setBounds(10, 665, 100, 29);
@@ -161,10 +162,10 @@ public class QuestionUI {
 		questionPanel = new JPanel();
 		questionPanel.setBounds(374, 20, 300, 750);
 		questionPanel.setLayout(null);
-		questionPanel.add(cat_text);
-		questionPanel.add(qText);
-		questionPanel.add(cAnswer);
-		questionPanel.add(diffText);
+		questionPanel.add(qCatInput);
+		questionPanel.add(qQuestInput);
+		questionPanel.add(qCAnsInput);
+		questionPanel.add(qDiffInput);
 		questionPanel.add(catLabel);
 		questionPanel.add(qLabel);
 		questionPanel.add(diffLabel);
@@ -176,10 +177,10 @@ public class QuestionUI {
 		addQuestion.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String catString = cat_text.getText();
-				String qString = qText.getText();
-				String cString = cAnswer.getText();
-				String diffString = diffText.getText();
+				String catString = qCatInput.getText();
+				String qString = qQuestInput.getText();
+				String cString = qCAnsInput.getText();
+				String diffString = qDiffInput.getText();
 				if ((catString != "") && (qString != "") && (cString != "") && (diffString != "")) {
 					Question q = new Question(catString, qString, cString, Integer.valueOf(diffString));
 					qm.addQuestion(q);
@@ -216,19 +217,18 @@ public class QuestionUI {
 
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				String buff_str = new String();
-				buff_str = listquestion.getSelectedValue();
+				String buff_str = listquestion.getSelectedValue();
 				if (qm.listCategory(selectedCategory).size() > 0) {
 					for (Question q : qm.listCategory(selectedCategory)) {
 						if (buff_str.equals(q.getQuestion())) {
-							question = q;
-							textField_Question.setText(q.getQuestion());
-							textField_CorrectAnswer.setText(q.getCorrectAnswer());
+							selectedQuestion = q;
+							infoQuestion.setText(q.getQuestion());
+							InfoAns.setText(q.getCorrectAnswer());
 							String diff = Integer.toString(q.getDifficulty());
-							textField_Difficulty.setText(diff);
-							textArea_IncAnswer.setText("");
+							infoDiff.setText(diff);
+							InfoIncAns.setText("");
 							for (String incAnswer : q.getIncorrects()) {
-								textArea_IncAnswer.append(incAnswer + "\n");
+								InfoIncAns.append(incAnswer + "\n");
 							}
 						}
 					}
@@ -273,23 +273,21 @@ public class QuestionUI {
 		listcategory.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				String buff_str = new String();
-				buff_str = listcategory.getSelectedValue();
+				selectedCategory = listcategory.getSelectedValue();
 
-				if (!buff_str.equals("")) {
-					question = null;
-					selectedCategory = buff_str;
+				if (!selectedCategory.equals("")) {
+					selectedQuestion = null;
 					model2.removeAllElements();
-					textField_Question.setText("");
-					textField_CorrectAnswer.setText("");
-					textField_Difficulty.setText("");
+					infoQuestion.setText("");
+					InfoAns.setText("");
+					infoDiff.setText("");
 
-					if (qm.listCategory(buff_str).size() > 0) {
-						for (Question q : qm.listCategory(buff_str)) {
+					if (qm.listCategory(selectedCategory).size() > 0) {
+						for (Question q : qm.listCategory(selectedCategory)) {
 							model2.addElement(q.getQuestion());
 						}
 					}
-					int num_que = qm.listCategory(buff_str).size();
+					int num_que = qm.listCategory(selectedCategory).size();
 					lblQuestions.setText("Questions (" + num_que + ")");
 				}
 
@@ -297,10 +295,10 @@ public class QuestionUI {
 		});
 
 		// Textfield for inputing category
-		categoryInput = new JTextField();
-		categoryInput.setBounds(60, 589, 130, 26);
-		categoryPanel.add(categoryInput);
-		categoryInput.setColumns(10);
+		NewcatInput = new JTextField();
+		NewcatInput.setBounds(60, 589, 130, 26);
+		categoryPanel.add(NewcatInput);
+		NewcatInput.setColumns(10);
 
 		// Button for adding a new category
 		JLabel lblNewCategory = new JLabel("New Category:");
@@ -311,6 +309,16 @@ public class QuestionUI {
 		JButton addCategorybtn = new JButton("Add Category");
 		addCategorybtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String newCat = NewcatInput.getText();
+				if (!newCat.equals("")) {
+					qm.addCategory(newCat);
+					try {
+						qm.saveToFile();
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+					model.addElement(newCat);
+				}
 			}
 		});
 		addCategorybtn.setBounds(60, 627, 130, 29);
@@ -318,6 +326,11 @@ public class QuestionUI {
 
 		// Button for deleting a category
 		JButton btnDeleteTheCategory = new JButton("Delete the Category");
+		btnDeleteTheCategory.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+			}
+		});
 		btnDeleteTheCategory.setBounds(40, 706, 175, 29);
 		categoryPanel.add(btnDeleteTheCategory);
 
