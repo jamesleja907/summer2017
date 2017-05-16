@@ -137,7 +137,12 @@ public class QuestionManager {
 	public void addCategory(String category) {
 		ArrayList<Question> categoryQuestions = new ArrayList<Question>();
 		questions.put(category, categoryQuestions);
-
+	}
+	
+	public void removeCategory(String category) {
+		if (questions.keySet().contains(category)) {
+			questions.remove(category);
+		}
 	}
 
 	/**
