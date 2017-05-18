@@ -196,7 +196,7 @@ public class QuestionUI {
 				String qString = qQuestInput.getText();
 				String cString = qCAnsInput.getText();
 				String diffString = qDiffInput.getText();
-				if ((catString != "") && (qString != "") && (cString != "") && (diffString != "")) {
+				if ((!catString.equals("")) && (!qString.equals("")) && (!cString.equals("")) && (!diffString.equals(""))) {
 					Question q = new Question(catString, qString, cString, Integer.valueOf(diffString));
 					qm.addQuestion(q);
 					try {
@@ -268,7 +268,6 @@ public class QuestionUI {
 		// Create the title for list of categories.
 		int num_cat = qm.getQuestions().size();
 		JLabel listimageslbl = new JLabel("List of Categories " + "(" + num_cat + ")");
-
 		// Collection of all categories.
 		DefaultListModel<String> model = new DefaultListModel<String>();
 		model.removeAllElements();
