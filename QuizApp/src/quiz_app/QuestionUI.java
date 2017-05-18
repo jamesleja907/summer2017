@@ -275,22 +275,22 @@ public class QuestionUI {
 		listcategory.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				selectedCategory = listcategory.getSelectedValue();
+				if (listcategory.getSelectedValue() != null) {
+					selectedCategory = listcategory.getSelectedValue();
+					if ((!selectedCategory.equals("")) && (!selectedCategory.equals(null))) {
+						selectedQuestion = null;
+						model2.removeAllElements();
+						emptyInfoPanel();
 
-				System.out.println(selectedCategory);
-				if ((!selectedCategory.equals("")) && (!selectedCategory.equals(null))) {
-					selectedQuestion = null;
-					model2.removeAllElements();
-					emptyInfoPanel();
-
-					if (qm.listCategory(selectedCategory).size() > 0) {
-						for (Question q : qm.listCategory(selectedCategory)) {
-							model2.addElement(q.getQuestion());
+						if (qm.listCategory(selectedCategory).size() > 0) {
+							for (Question q : qm.listCategory(selectedCategory)) {
+								model2.addElement(q.getQuestion());
+							}
 						}
+						qCatInput.setText(selectedCategory);
+						int num_que = qm.listCategory(selectedCategory).size();
+						lblQuestions.setText("Questions (" + num_que + ")");
 					}
-
-					int num_que = qm.listCategory(selectedCategory).size();
-					lblQuestions.setText("Questions (" + num_que + ")");
 				}
 
 			}
@@ -329,9 +329,13 @@ public class QuestionUI {
 		JButton btnDeleteTheCategory = new JButton("Delete the Category");
 		btnDeleteTheCategory.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+//				listcategory.clearSelection();
+//				model.setElementAt("", model.indexOf(selectedCategory));
 				model.removeElement(selectedCategory);
 				qm.removeCategory(selectedCategory);
+				System.out.println(qm.toString());
 				selectedCategory = "";
+				System.out.println("got here");
 				model2.removeAllElements();
 				emptyInfoPanel();
 				selectedQuestion = null;

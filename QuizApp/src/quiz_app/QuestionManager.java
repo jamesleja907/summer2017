@@ -204,7 +204,8 @@ public class QuestionManager {
 
 	public static void main(String[] args) throws IOException {
 		QuestionManager qm = QuestionManager.getInstance();
-		qm.addCategory("Captial Cities");
+		qm.addCategory("Capital Cities");
+		qm.removeCategory("Capital Cities");
 		qm.saveToFile();
 		System.out.println(qm);
 	}
