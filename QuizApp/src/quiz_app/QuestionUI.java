@@ -101,10 +101,10 @@ public class QuestionUI {
 		lblQuestion.setHorizontalAlignment(SwingConstants.CENTER);
 		lblQuestion.setBounds(6, 44, 446, 16);
 		infoPanel.add(lblQuestion);
-		
+
 		infoIncAns = new JTextArea();
 		infoIncAns.setEditable(false);
-		
+
 		infoIncAnsInput = new JTextField();
 		infoIncAnsInput.setBounds(16, 559, 237, 26);
 		infoPanel.add(infoIncAnsInput);
@@ -113,7 +113,7 @@ public class QuestionUI {
 		JButton btnAddIncorrect = new JButton("Add Incorrect Answer");
 		btnAddIncorrect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if ((selectedQuestion != null) && (!infoIncAnsInput.equals(""))){
+				if ((selectedQuestion != null) && (!infoIncAnsInput.equals(""))) {
 					selectedQuestion.addIncorrect(infoIncAnsInput.getText());
 					infoIncAns.append(infoIncAnsInput.getText() + "\n");
 					try {
@@ -124,7 +124,7 @@ public class QuestionUI {
 			}
 		});
 		btnAddIncorrect.setBounds(265, 559, 175, 29);
-		
+
 		infoPanel.add(btnAddIncorrect);
 
 		JButton btnDeleteQuestion = new JButton("Delete this Question");
@@ -186,32 +186,6 @@ public class QuestionUI {
 		questionPanel.add(diffLabel);
 		questionPanel.add(cLabel);
 
-		// Button for adding a new question.
-		JButton addQuestion = new JButton("Add Question");
-		addQuestion.setBounds(110, 706, 175, 29);
-		addQuestion.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String catString = qCatInput.getText();
-				String qString = qQuestInput.getText();
-				String cString = qCAnsInput.getText();
-				String diffString = qDiffInput.getText();
-				if ((!catString.equals("")) && (!qString.equals("")) && (!cString.equals("")) && (!diffString.equals(""))) {
-					Question q = new Question(catString, qString, cString, Integer.valueOf(diffString));
-					qm.addQuestion(q);
-					try {
-						qm.saveToFile();
-						System.out.println("got here");
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
-				}
-
-			}
-		});
-
-		questionPanel.add(addQuestion);
-
 		// Create the viewer for list of questions.
 		DefaultListModel<String> model2 = new DefaultListModel<String>();
 		model2.removeAllElements();
@@ -229,7 +203,6 @@ public class QuestionUI {
 		listquestion.setBorder(new LineBorder(Color.GRAY));
 
 		listquestion.addListSelectionListener(new ListSelectionListener() {
-
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				// add null check for deleting a question.
@@ -254,6 +227,36 @@ public class QuestionUI {
 			}
 
 		});
+
+		// Button for adding a new question.
+		JButton addQuestion = new JButton("Add Question");
+		addQuestion.setBounds(110, 706, 175, 29);
+		addQuestion.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String catString = qCatInput.getText();
+				String qString = qQuestInput.getText();
+				String cString = qCAnsInput.getText();
+				String diffString = qDiffInput.getText();
+				if ((!catString.equals("")) && (!qString.equals("")) && (!cString.equals(""))
+						&& (!diffString.equals(""))) {
+					Question q = new Question(catString, qString, cString, Integer.valueOf(diffString));
+					qm.addQuestion(q);
+					int num_que = qm.listCategory(selectedCategory).size();
+					lblQuestions.setText("Questions (" + num_que + ")");
+					
+					try {
+						qm.saveToFile();
+						System.out.println("got here");
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				}
+
+			}
+		});
+
+		questionPanel.add(addQuestion);
 
 		container.add(questionPanel);
 
@@ -330,6 +333,9 @@ public class QuestionUI {
 				String newCat = newCatInput.getText();
 				if (!newCat.equals("")) {
 					qm.addCategory(newCat);
+					int num_cat = qm.getQuestions().size();
+					listimageslbl.setText("List of Categories " + "(" + num_cat + ")");
+					
 					try {
 						qm.saveToFile();
 					} catch (IOException e1) {
@@ -351,6 +357,11 @@ public class QuestionUI {
 				model2.removeAllElements();
 				emptyInfoPanel();
 				selectedQuestion = null;
+				
+				int num_cat = qm.getQuestions().size();
+				listimageslbl.setText("List of Categories " + "(" + num_cat + ")");
+				lblQuestions.setText("Questions (" + 0 + ")");
+
 				try {
 					qm.saveToFile();
 				} catch (IOException e1) {
