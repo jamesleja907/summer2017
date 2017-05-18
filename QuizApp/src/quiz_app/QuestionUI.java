@@ -101,22 +101,35 @@ public class QuestionUI {
 		lblQuestion.setHorizontalAlignment(SwingConstants.CENTER);
 		lblQuestion.setBounds(6, 44, 446, 16);
 		infoPanel.add(lblQuestion);
-
+		
+		infoIncAns = new JTextArea();
+		infoIncAns.setEditable(false);
+		
 		infoIncAnsInput = new JTextField();
 		infoIncAnsInput.setBounds(16, 559, 237, 26);
 		infoPanel.add(infoIncAnsInput);
 		infoIncAnsInput.setColumns(10);
 
 		JButton btnAddIncorrect = new JButton("Add Incorrect Answer");
+		btnAddIncorrect.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if ((selectedQuestion != null) && (!infoIncAnsInput.equals(""))){
+					selectedQuestion.addIncorrect(infoIncAnsInput.getText());
+					infoIncAns.append(infoIncAnsInput.getText() + "\n");
+					try {
+						qm.saveToFile();
+					} catch (IOException e1) {
+					}
+				}
+			}
+		});
 		btnAddIncorrect.setBounds(265, 559, 175, 29);
+		
 		infoPanel.add(btnAddIncorrect);
 
 		JButton btnDeleteQuestion = new JButton("Delete this Question");
 		btnDeleteQuestion.setBounds(128, 663, 217, 62);
 		infoPanel.add(btnDeleteQuestion);
-
-		infoIncAns = new JTextArea();
-		infoIncAns.setEditable(false);
 
 		JScrollPane scroll_IncAnswer = new JScrollPane(infoIncAns);
 		scroll_IncAnswer.setBounds(6, 319, 424, 216);
@@ -219,18 +232,21 @@ public class QuestionUI {
 
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				String buff_str = listquestion.getSelectedValue();
-				if (qm.listCategory(selectedCategory).size() > 0) {
-					for (Question q : qm.listCategory(selectedCategory)) {
-						if (buff_str.equals(q.getQuestion())) {
-							selectedQuestion = q;
-							infoQuestion.setText(q.getQuestion());
-							infoAns.setText(q.getCorrectAnswer());
-							String diff = Integer.toString(q.getDifficulty());
-							infoDiff.setText(diff);
-							infoIncAns.setText("");
-							for (String incAnswer : q.getIncorrects()) {
-								infoIncAns.append(incAnswer + "\n");
+				// add null check for deleting a question.
+				if (listquestion.getSelectedValue() != null) {
+					String buff_str = listquestion.getSelectedValue();
+					if (qm.listCategory(selectedCategory).size() > 0) {
+						for (Question q : qm.listCategory(selectedCategory)) {
+							if (buff_str.equals(q.getQuestion())) {
+								selectedQuestion = q;
+								infoQuestion.setText(q.getQuestion());
+								infoAns.setText(q.getCorrectAnswer());
+								String diff = Integer.toString(q.getDifficulty());
+								infoDiff.setText(diff);
+								infoIncAns.setText("");
+								for (String incAnswer : q.getIncorrects()) {
+									infoIncAns.append(incAnswer + "\n");
+								}
 							}
 						}
 					}
@@ -277,7 +293,7 @@ public class QuestionUI {
 			public void valueChanged(ListSelectionEvent e) {
 				if (listcategory.getSelectedValue() != null) {
 					selectedCategory = listcategory.getSelectedValue();
-					if ((!selectedCategory.equals("")) && (!selectedCategory.equals(null))) {
+					if (!selectedCategory.equals("")) {
 						selectedQuestion = null;
 						model2.removeAllElements();
 						emptyInfoPanel();
@@ -298,6 +314,7 @@ public class QuestionUI {
 
 		// Textfield for inputing category
 		newCatInput = new JTextField();
+		newCatInput.addMouseListener(m1);
 		newCatInput.setBounds(60, 589, 130, 26);
 		categoryPanel.add(newCatInput);
 		newCatInput.setColumns(10);
@@ -329,13 +346,9 @@ public class QuestionUI {
 		JButton btnDeleteTheCategory = new JButton("Delete the Category");
 		btnDeleteTheCategory.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				listcategory.clearSelection();
-//				model.setElementAt("", model.indexOf(selectedCategory));
 				model.removeElement(selectedCategory);
 				qm.removeCategory(selectedCategory);
-				System.out.println(qm.toString());
 				selectedCategory = "";
-				System.out.println("got here");
 				model2.removeAllElements();
 				emptyInfoPanel();
 				selectedQuestion = null;
