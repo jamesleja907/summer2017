@@ -109,7 +109,8 @@ public class QuestionUI {
 		infoIncAnsInput.setBounds(16, 559, 237, 26);
 		infoPanel.add(infoIncAnsInput);
 		infoIncAnsInput.setColumns(10);
-
+		
+		// btn for adding an incorrect answer.
 		JButton btnAddIncorrect = new JButton("Add Incorrect Answer");
 		btnAddIncorrect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -124,9 +125,9 @@ public class QuestionUI {
 			}
 		});
 		btnAddIncorrect.setBounds(265, 559, 175, 29);
-
 		infoPanel.add(btnAddIncorrect);
-
+		
+		// btn for deleting the selected question.
 		JButton btnDeleteQuestion = new JButton("Delete this Question");
 		btnDeleteQuestion.setBounds(128, 663, 217, 62);
 		infoPanel.add(btnDeleteQuestion);
@@ -135,7 +136,6 @@ public class QuestionUI {
 		scroll_IncAnswer.setBounds(6, 319, 424, 216);
 		scroll_IncAnswer.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		scroll_IncAnswer.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-
 		infoPanel.add(scroll_IncAnswer);
 
 		// ========== questionPanel ==========
@@ -153,7 +153,6 @@ public class QuestionUI {
 		qQuestInput.setBounds(110, 583, 175, 29);
 		qQuestInput.addMouseListener(m1);
 
-		// Need btnlistener to get num_questions in the category
 		JLabel qLabel = new JLabel();
 		qLabel.setBounds(10, 583, 100, 29);
 		qLabel.setText("Question");
@@ -228,7 +227,7 @@ public class QuestionUI {
 
 		});
 
-		// Button for adding a new question.
+		// Btn for adding a new question.
 		JButton addQuestion = new JButton("Add Question");
 		addQuestion.setBounds(110, 706, 175, 29);
 		addQuestion.addActionListener(new ActionListener() {
@@ -242,8 +241,17 @@ public class QuestionUI {
 						&& (!diffString.equals(""))) {
 					Question q = new Question(catString, qString, cString, Integer.valueOf(diffString));
 					qm.addQuestion(q);
+					
 					int num_que = qm.listCategory(selectedCategory).size();
 					lblQuestions.setText("Questions (" + num_que + ")");
+					
+					// Updating model2 for displaying.
+					model2.removeAllElements();
+					if (qm.listCategory(selectedCategory).size() > 0) {
+						for (Question q1 : qm.listCategory(selectedCategory)) {
+							model2.addElement(q1.getQuestion());
+						}
+					}
 					
 					try {
 						qm.saveToFile();
@@ -305,6 +313,7 @@ public class QuestionUI {
 								model2.addElement(q.getQuestion());
 							}
 						}
+						
 						qCatInput.setText(selectedCategory);
 						int num_que = qm.listCategory(selectedCategory).size();
 						lblQuestions.setText("Questions (" + num_que + ")");
@@ -335,7 +344,7 @@ public class QuestionUI {
 					qm.addCategory(newCat);
 					int num_cat = qm.getQuestions().size();
 					listimageslbl.setText("List of Categories " + "(" + num_cat + ")");
-					
+
 					try {
 						qm.saveToFile();
 					} catch (IOException e1) {
@@ -357,7 +366,7 @@ public class QuestionUI {
 				model2.removeAllElements();
 				emptyInfoPanel();
 				selectedQuestion = null;
-				
+
 				int num_cat = qm.getQuestions().size();
 				listimageslbl.setText("List of Categories " + "(" + num_cat + ")");
 				lblQuestions.setText("Questions (" + 0 + ")");
